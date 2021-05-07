@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    products = Product.all
-    render json: products.as_json
+    render json: Product.all.as_json
   end
 
   def show
@@ -22,14 +21,17 @@ class ProductsController < ApplicationController
 
   def update
     product = Product.find_by(id: params["id"])
-    new_title = params["user_title"]
-    product.title = new_title
-    render json: product.title.as_json
+
+    product.title = params["name"] || product.title
+    product.price = params["price"] || product.price
+    product.image_url = params["image_url"] || product.image_url
+    product.description = params["description"] || product.description
+    product.save
+    render json: product.as_json
   end
 
   def destroy
     product = Product.find_by(id: params["id"])
-    #product = #product minus product[id]
-    #????
+    product.destroy
   end
 end
