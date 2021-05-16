@@ -1,3 +1,3 @@
 class Supplier < ApplicationRecord
-  validates :supplier_id, numericality: true
+  has_many :products
 end
