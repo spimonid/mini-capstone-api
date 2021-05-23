@@ -2,12 +2,12 @@ class OrdersController < ApplicationController
   before_action :authenticate_user
 
   def index
-    render json: current_user.orders
+    render json: current_user.orders, include: "carted_products.product"
   end
 
   def show
     order = current_user.orders.find_by(id: params["id"])
-    render json: order
+    render json: order, include: "carted_products.product"
   end
 
   def create
